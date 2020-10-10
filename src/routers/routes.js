@@ -12,4 +12,17 @@ router.get('/users', isAuth, getUsers);
 router.get('/user/:id', isAuth, getUser);
 router.delete('/user/:id', isAuth, deleteUser);
 
+const {
+  getCategories,
+  getCategory,
+  addCategory,
+  updateCategory,
+  deleteCategory,
+} = require('../controllers/category');
+router.get('/categories', isAuth, getCategories);
+router.get('/category/:id', isAuth, getCategory);
+router.post('/category', isAuth, addCategory);
+router.patch('/category/:id', isAuth, updateCategory);
+router.delete('/category/:id', isAuth, deleteCategory);
+
 module.exports = router;
