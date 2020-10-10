@@ -25,4 +25,17 @@ router.post('/category', isAuth, addCategory);
 router.patch('/category/:id', isAuth, updateCategory);
 router.delete('/category/:id', isAuth, deleteCategory);
 
+const {
+  getBooks,
+  getBook,
+  addBook,
+  editBook,
+  deleteBook,
+} = require('../controllers/book');
+router.get('/books', isAuth, getBooks);
+router.get('/book/:id', isAuth, getBook);
+router.post('/book', isAuth, addBook);
+router.patch('/book/:id', isAuth, editBook);
+router.delete('/book/:id', isAuth, deleteBook);
+
 module.exports = router;

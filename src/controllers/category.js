@@ -1,4 +1,5 @@
 const { Category } = require('../../models');
+const Joi = require('joi');
 
 exports.getCategories = async (req, res) => {
   try {
@@ -44,6 +45,14 @@ exports.getCategory = async (req, res) => {
 
 exports.addCategory = async (req, res) => {
   try {
+    const schema = Joi.object().keys({
+      name: Joi.string().required(),
+    });
+
+    const { error } = schema.validate(req.body);
+    if (error)
+      return res.status(400).send({ message: error.details[0].message });
+
     const { id, name } = await Category.create(req.body);
     res.send({
       message: 'Category successfully added',
@@ -98,7 +107,7 @@ exports.updateCategory = async (req, res) => {
 exports.deleteCategory = async (req, res) => {
   try {
     const { id } = req.params;
-    const Category = await Category.destroy({
+    const data = await Category.destroy({
       where: {
         id,
       },
