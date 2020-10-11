@@ -7,8 +7,10 @@ exports.isAuth = (req, res, next) => {
     !(authHeader = req.headers.authorization) ||
     !(token = authHeader.replace('Bearer ', ''))
   )
-    return res.status(403).send({
-      message: 'Access Denied',
+    return res.status(401).send({
+      status: 'fail',
+      message: 'You are unauthorized to access. Please log in.',
+      code: 401,
     });
 
   try {
@@ -17,8 +19,10 @@ exports.isAuth = (req, res, next) => {
     next();
   } catch (error) {
     console.log(error);
-    res.status(403).send({
+    res.status(401).send({
+      status: 'fail',
       message: 'Invalid Token',
+      code: 401,
     });
   }
 };

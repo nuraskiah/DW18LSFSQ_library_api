@@ -1,9 +1,9 @@
-const { Book, Category, User } = require('../../models');
+const { Book, Category, User, sequelize } = require('../../models');
 const Joi = require('joi');
 
 exports.getBooks = async (req, res) => {
   try {
-    const datas = await Book.findAll({
+    const data = await Book.findAll({
       include: [
         {
           model: Category,
@@ -21,13 +21,16 @@ exports.getBooks = async (req, res) => {
       },
     });
     res.send({
-      message: 'Books data successfully fetched',
-      data: datas,
+      status: 'success',
+      message: 'Books fetched successfully',
+      data,
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      message: 'Internal Server Error!',
+      status: 'error',
+      message: 'Internal Server Error',
+      code: 500,
     });
   }
 };
@@ -56,13 +59,16 @@ exports.getBook = async (req, res) => {
       },
     });
     res.send({
-      message: 'Book data successfully fetched',
+      status: 'success',
+      message: 'Book fetched successfully',
       data,
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      message: 'Internal Server Error!',
+      status: 'error',
+      message: 'Internal Server Error',
+      code: 500,
     });
   }
 };
@@ -109,13 +115,16 @@ exports.addBook = async (req, res) => {
       },
     });
     res.send({
-      message: 'Book successfully added',
+      status: 'success',
+      message: 'Book added successfully',
       data,
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      message: 'Internal Server Error!',
+      status: 'error',
+      message: 'Internal Server Error',
+      code: 500,
     });
   }
 };
@@ -130,8 +139,10 @@ exports.editBook = async (req, res) => {
     });
 
     if (!updated)
-      return res.status(400).send({
-        message: 'Book not found',
+      return res.status(404).send({
+        status: 'fail',
+        message: 'Book not found!',
+        code: 404,
       });
 
     const data = await Book.findOne({
@@ -156,13 +167,16 @@ exports.editBook = async (req, res) => {
     });
 
     res.send({
-      message: `Book updated`,
+      status: 'success',
+      message: `Book updated successfully`,
       data,
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      message: 'Internal Server Error!',
+      status: 'error',
+      message: 'Internal Server Error',
+      code: 500,
     });
   }
 };
@@ -176,7 +190,8 @@ exports.deleteBook = async (req, res) => {
       },
     });
     res.send({
-      message: `Book with id ${id} successfully deleted`,
+      status: 'success',
+      message: `Book deleted successfully`,
       data: {
         id,
       },
@@ -184,7 +199,95 @@ exports.deleteBook = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      message: 'Internal Server Error!',
+      status: 'error',
+      message: 'Internal Server Error',
+      code: 500,
+    });
+  }
+};
+
+// --------------------------BOOKMARK---------------------------------
+
+exports.getBookmark = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const [data] = await sequelize.query(
+      `SELECT * FROM books WHERE JSON_CONTAINS(bookmark, ${id})`
+    );
+    res.send({
+      status: 'success',
+      message: 'Bookmark fetched successfully',
+      data,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      status: 'error',
+      message: 'Internal Server Error',
+      code: 500,
+    });
+  }
+};
+
+exports.bookmark = async (req, res) => {
+  try {
+    const { bookId, userId } = req.params;
+    const book = await sequelize.query(
+      `UPDATE books SET bookmark = JSON_MERGE(bookmark, ${userId}) WHERE id = ${bookId}`
+    );
+
+    const { id, title } = await Book.findOne({
+      where: {
+        id: bookId,
+      },
+    });
+
+    res.send({
+      status: 'success',
+      message: 'Book bookmarked successfully',
+      data: {
+        id,
+        title,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      status: 'error',
+      message: 'Internal Server Error',
+      code: 500,
+    });
+  }
+};
+
+exports.unBookmark = async (req, res) => {
+  try {
+    const { bookId, userId } = req.params;
+    const book = await sequelize.query(
+      `UPDATE books SET bookmark = JSON_REMOVE(bookmark, JSON_UNQUOTE(JSON_SEARCH(bookmark, 'one', ${userId})))
+      WHERE id = ${bookId}`
+    );
+
+    const { id, title } = await Book.findOne({
+      where: {
+        id: bookId,
+      },
+    });
+
+    res.send({
+      status: 'success',
+      message: 'Book deleted from bookmark successfully',
+      data: {
+        id,
+        title,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      status: 'error',
+      message: 'Internal Server Error',
+      code: 500,
     });
   }
 };

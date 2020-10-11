@@ -9,13 +9,16 @@ exports.getCategories = async (req, res) => {
       },
     });
     res.send({
-      message: 'Categories data successfully fetched',
+      status: 'success',
+      message: 'Categories fetched successfully',
       data,
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      message: 'Internal Server Error!',
+      status: 'error',
+      message: 'Internal Server Error',
+      code: 500,
     });
   }
 };
@@ -32,13 +35,16 @@ exports.getCategory = async (req, res) => {
       },
     });
     res.send({
-      message: `Category data successfully fetched`,
+      status: 'success',
+      message: `Category fetched successfully`,
       data,
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      message: 'Internal Server Error!',
+      status: 'error',
+      message: 'Internal Server Error',
+      code: 500,
     });
   }
 };
@@ -51,11 +57,16 @@ exports.addCategory = async (req, res) => {
 
     const { error } = schema.validate(req.body);
     if (error)
-      return res.status(400).send({ message: error.details[0].message });
+      return res.status(400).send({
+        status: 'fail',
+        message: error.details[0].message,
+        code: 400,
+      });
 
     const { id, name } = await Category.create(req.body);
     res.send({
-      message: 'Category successfully added',
+      status: 'success',
+      message: 'Category added successfully',
       data: {
         id,
         name,
@@ -64,7 +75,9 @@ exports.addCategory = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      message: 'Internal Server Error!',
+      status: 'error',
+      message: 'Internal Server Error',
+      code: 500,
     });
   }
 };
@@ -79,8 +92,10 @@ exports.updateCategory = async (req, res) => {
     });
 
     if (!updated)
-      return res.status(400).send({
-        message: 'Category not found',
+      return res.status(404).send({
+        status: 'fail',
+        message: 'Category not found!',
+        code: 404,
       });
 
     const data = await Category.findOne({
@@ -93,13 +108,16 @@ exports.updateCategory = async (req, res) => {
     });
 
     res.send({
-      message: `Category updated`,
+      status: 'success',
+      message: `Category updated successfully`,
       data,
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      message: 'Internal Server Error!',
+      status: 'error',
+      message: 'Internal Server Error',
+      code: 500,
     });
   }
 };
@@ -113,7 +131,8 @@ exports.deleteCategory = async (req, res) => {
       },
     });
     res.send({
-      message: `Category with id ${id} successfully deleted`,
+      status: 'success',
+      message: 'Category deleted successfully',
       data: {
         id,
       },
@@ -121,7 +140,9 @@ exports.deleteCategory = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      message: 'Internal Server Error!',
+      status: 'error',
+      message: 'Internal Server Error',
+      code: 500,
     });
   }
 };

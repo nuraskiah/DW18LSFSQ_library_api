@@ -31,11 +31,17 @@ const {
   addBook,
   editBook,
   deleteBook,
+  getBookmark,
+  bookmark,
+  unBookmark,
 } = require('../controllers/book');
 router.get('/books', isAuth, getBooks);
 router.get('/book/:id', isAuth, getBook);
 router.post('/book', isAuth, addBook);
 router.patch('/book/:id', isAuth, editBook);
 router.delete('/book/:id', isAuth, deleteBook);
+router.get('/bookmark/:id', isAuth, getBookmark);
+router.patch('/bookmark/:bookId/:userId', isAuth, bookmark);
+router.patch('/unbookmark/:bookId/:userId', isAuth, unBookmark);
 
 module.exports = router;
