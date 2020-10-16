@@ -6,6 +6,31 @@ const Joi = require('joi');
 const jwtKey = process.env.JWT_KEY;
 const saltRounds = 10;
 
+exports.validateAuth = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const data = await User.findOne({
+      where: {
+        id,
+      },
+      attributes: {
+        exclude: ['password', 'createdAt', 'updatedAt'],
+      },
+    });
+    res.send({
+      status: 'success',
+      message: 'User fetched successfully',
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      status: 'error',
+      message: 'Internal Server Error',
+      code: 500,
+    });
+  }
+};
+
 // --------------------------------LOGIN----------------------------
 exports.login = async (req, res) => {
   try {

@@ -8,7 +8,8 @@ exports.getUsers = async (req, res) => {
       },
     });
     res.send({
-      message: 'Users data has been successfully fetched',
+      status: 'success',
+      message: 'Users fetched successfully',
       data,
     });
   } catch (error) {
@@ -31,13 +32,61 @@ exports.getUser = async (req, res) => {
       },
     });
     res.send({
-      message: `User data has been successfully fetched`,
+      status: 'success',
+      message: 'User fetched successfully',
       data,
     });
   } catch (error) {
-    console.log(error);
     res.status(500).send({
-      message: 'Internal Server Error!',
+      status: 'error',
+      message: 'Internal Server Error',
+      code: 500,
+    });
+  }
+};
+
+exports.updateUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const [updated] = await User.update(
+      {
+        ...req.body,
+        photo: req.file.filename,
+      },
+      {
+        where: {
+          id,
+        },
+      }
+    );
+
+    if (!updated)
+      return res.status(404).send({
+        status: 'fail',
+        message: 'User not found!',
+        code: 404,
+      });
+
+    const data = await User.findOne({
+      where: {
+        id,
+      },
+      attributes: {
+        exclude: ['password', 'createdAt', 'updatedAt'],
+      },
+    });
+
+    res.send({
+      status: 'success',
+      message: `User updated successfully`,
+      data,
+      path: req.file.path,
+    });
+  } catch (error) {
+    res.status(500).send({
+      status: 'error',
+      message: 'Internal Server Error',
+      code: 500,
     });
   }
 };
@@ -57,9 +106,10 @@ exports.deleteUser = async (req, res) => {
       },
     });
   } catch (error) {
-    console.log(error);
     res.status(500).send({
-      message: 'Internal Server Error!',
+      status: 'error',
+      message: 'Internal Server Error',
+      code: 500,
     });
   }
 };

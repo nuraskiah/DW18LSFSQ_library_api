@@ -20,11 +20,15 @@ module.exports = (sequelize, DataTypes) => {
         },
         as: 'user',
       });
+      Book.hasMany(models.Bookmark, {
+        as: 'bookmarks',
+      });
     }
   }
   Book.init(
     {
       title: DataTypes.STRING,
+      author: DataTypes.STRING,
       publication: DataTypes.STRING,
       categoryId: DataTypes.INTEGER,
       userId: DataTypes.INTEGER,
@@ -34,7 +38,6 @@ module.exports = (sequelize, DataTypes) => {
       cover: DataTypes.STRING,
       file: DataTypes.STRING,
       status: DataTypes.STRING,
-      bookmark: DataTypes.JSON,
     },
     {
       sequelize,
