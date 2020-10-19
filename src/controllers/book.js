@@ -19,6 +19,7 @@ exports.getBooks = async (req, res) => {
       attributes: {
         exclude: ['createdAt', 'updatedAt', 'categoryId', 'userId'],
       },
+      order: [['id', 'DESC']],
     });
     res.send({
       status: 'success',
@@ -57,6 +58,10 @@ exports.getUserBooks = async (req, res) => {
       attributes: {
         exclude: ['createdAt', 'updatedAt', 'categoryId', 'userId'],
       },
+      order: [
+        ['status', 'ASC'],
+        ['id', 'DESC'],
+      ],
     });
     res.send({
       status: 'success',
@@ -111,25 +116,26 @@ exports.getBook = async (req, res) => {
 
 exports.addBook = async (req, res) => {
   try {
-    const schema = Joi.object().keys({
-      title: Joi.string().required(),
-      author: Joi.string().required(),
-      publication: Joi.string().required(),
-      categoryId: Joi.number().required(),
-      userId: Joi.number().required(),
-      pages: Joi.number().required(),
-      isbn: Joi.string().required(),
-      about: Joi.string().required(),
-      status: Joi.string().required(),
-    });
+    // const schema = Joi.object().keys({
+    //   title: Joi.string().required(),
+    //   author: Joi.string().required(),
+    //   publication: Joi.string().required(),
+    //   categoryId: Joi.number().required(),
+    //   userId: Joi.number().required(),
+    //   pages: Joi.number().required(),
+    //   isbn: Joi.string().required(),
+    //   about: Joi.string().required(),
+    //   cover: Joi.string(),
+    //   status: Joi.string().required(),
+    // });
 
-    const { error } = schema.validate(req.body);
-    if (error)
-      return res.status(400).send({
-        status: 'fail',
-        message: error.details[0].message,
-        code: 400,
-      });
+    // const { error } = schema.validate(req.body);
+    // if (error)
+    //   return res.status(400).send({
+    //     status: 'fail',
+    //     message: error.details[0].message,
+    //     code: 400,
+    //   });
 
     const { id } = await Book.create({
       ...req.body,

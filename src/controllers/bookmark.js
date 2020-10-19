@@ -11,17 +11,11 @@ exports.getBookmarks = async (req, res) => {
         {
           model: Book,
           as: 'book',
-          attributes: ['id', 'title', 'cover'],
-          include: [
-            {
-              model: User,
-              as: 'user',
-              attributes: ['fullName'],
-            },
-          ],
+          attributes: ['id', 'title', 'author', 'cover'],
         },
       ],
       attributes: ['id'],
+      order: [['id', 'DESC']],
     });
 
     res.send({

@@ -7,6 +7,7 @@ exports.getCategories = async (req, res) => {
       attributes: {
         exclude: ['createdAt', 'updatedAt'],
       },
+      order: [['name', 'ASC']],
     });
     res.send({
       status: 'success',

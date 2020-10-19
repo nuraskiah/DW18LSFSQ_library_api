@@ -8,31 +8,27 @@ exports.upload = (fieldName) => {
       cb(null, `public/${file.fieldname}s`);
     },
     filename: (req, file, cb) => {
-      cb(
-        null,
-        file.fieldname + '-' + Date.now() + path.extname(file.originalname)
-      );
+      let extension = file.fieldname === 'file' ? '.epub' : '.png';
+      cb(null, file.fieldname + '-' + Date.now() + extension);
     },
   });
 
-  let validExtension, fileType, maxSize, limitSize;
+  let fileType, limitSize;
 
   // set filter
   const fileFilter = (req, file, cb) => {
     if (file.fieldname === 'file') {
-      validExtension = /\.(pdf|epub)$/;
-      fileType = 'epub or pdf';
-      maxSize = 5 * 1000 * 1000;
+      fileType = 'epub';
       limitSize = '5 MB';
     } else {
-      validExtension = /\.(jpg|jpeg|png)$/;
       fileType = 'image';
-      maxSize = 2 * 1000 * 1000;
       limitSize = '2 MB';
     }
 
+    console.log('FILE MIME TYPE', file.mimetype);
+
     const extname = path.extname(file.originalname).toLowerCase();
-    if (!extname.match(validExtension)) {
+    if (!file.mimetype.match(fileType)) {
       req.fileValidationError = {
         status: 'fail',
         message: `Please select an ${fileType} file!`,
@@ -49,16 +45,17 @@ exports.upload = (fieldName) => {
   if (fieldName === 'photo') {
     upload = multer({
       storage,
+      fileFilter,
       limits: {
-        fileSize: maxSize,
+        fileSize: 2 * 1000 * 1000,
       },
-    }).single(fieldName);
+    }).single('photo');
   } else {
     upload = multer({
       storage,
       fileFilter,
       limits: {
-        fileSize: maxSize,
+        fileSize: 5 * 1000 * 1000,
       },
     }).fields([{ name: 'cover' }, { name: 'file' }]);
   }
