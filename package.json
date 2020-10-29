@@ -2,6 +2,9 @@
   "name": "library_api",
   "version": "1.0.0",
   "description": "API for Lib'rary",
+  "engines": {
+    "node": "12.x"
+  },
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js"
