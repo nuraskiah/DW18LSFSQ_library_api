@@ -11,6 +11,9 @@ module.exports = {
       title: {
         type: Sequelize.STRING,
       },
+      author: {
+        type: Sequelize.STRING,
+      },
       publication: {
         type: Sequelize.STRING,
       },
@@ -47,9 +50,6 @@ module.exports = {
       },
       status: {
         type: Sequelize.STRING,
-      },
-      bookmark: {
-        type: Sequelize.JSON,
       },
       createdAt: {
         allowNull: false,
