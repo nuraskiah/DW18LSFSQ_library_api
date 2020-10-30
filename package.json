@@ -21,9 +21,9 @@
     "multer": "^1.4.2",
     "mysql2": "^2.2.5",
     "pg": "^8.4.2",
-    "sequelize": "^6.3.5"
+    "sequelize": "^6.3.5",
+    "sequelize-cli": "^6.2.0"
   },
   "devDependencies": {
-    "sequelize-cli": "^6.2.0"
   }
 }
