@@ -15,6 +15,8 @@ module.exports = {
           address: 'Indonesia',
           photo: 'new-user.png',
           role: 'admin',
+          createdAt: new Date(),
+          updatedAt: new Date(),
         },
       ],
       {}

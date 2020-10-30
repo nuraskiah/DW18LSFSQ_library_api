@@ -7,15 +7,23 @@ module.exports = {
       [
         {
           name: 'Fantasy',
+          createdAt: new Date(),
+          updatedAt: new Date(),
         },
         {
           name: 'Sci-Fi',
+          createdAt: new Date(),
+          updatedAt: new Date(),
         },
         {
           name: 'Documentary',
+          createdAt: new Date(),
+          updatedAt: new Date(),
         },
         {
           name: 'Mystery',
+          createdAt: new Date(),
+          updatedAt: new Date(),
         },
       ],
       {}
