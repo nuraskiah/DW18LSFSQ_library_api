@@ -17,7 +17,14 @@ exports.getBooks = async (req, res) => {
         },
       ],
       attributes: {
-        exclude: ['createdAt', 'updatedAt', 'categoryId', 'userId'],
+        exclude: [
+          'createdAt',
+          'updatedAt',
+          'categoryId',
+          'userId',
+          'CategoryId',
+          'UserId',
+        ],
       },
       order: [['id', 'DESC']],
     });
@@ -56,7 +63,14 @@ exports.getUserBooks = async (req, res) => {
         },
       ],
       attributes: {
-        exclude: ['createdAt', 'updatedAt', 'categoryId', 'userId'],
+        exclude: [
+          'createdAt',
+          'updatedAt',
+          'categoryId',
+          'userId',
+          'CategoryId',
+          'UserId',
+        ],
       },
       order: [
         ['status', 'ASC'],
@@ -96,7 +110,14 @@ exports.getBook = async (req, res) => {
         },
       ],
       attributes: {
-        exclude: ['createdAt', 'updatedAt', 'categoryId', 'userId'],
+        exclude: [
+          'createdAt',
+          'updatedAt',
+          'categoryId',
+          'userId',
+          'CategoryId',
+          'UserId',
+        ],
       },
     });
     res.send({
@@ -160,7 +181,14 @@ exports.addBook = async (req, res) => {
         },
       ],
       attributes: {
-        exclude: ['createdAt', 'updatedAt', 'categoryId', 'userId'],
+        exclude: [
+          'createdAt',
+          'updatedAt',
+          'categoryId',
+          'userId',
+          'CategoryId',
+          'UserId',
+        ],
       },
     });
     res.send({
@@ -211,7 +239,14 @@ exports.editBook = async (req, res) => {
         },
       ],
       attributes: {
-        exclude: ['createdAt', 'updatedAt', 'categoryId', 'userId'],
+        exclude: [
+          'createdAt',
+          'updatedAt',
+          'categoryId',
+          'userId',
+          'CategoryId',
+          'UserId',
+        ],
       },
     });
 
