@@ -10,13 +10,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Book.belongsTo(models.Category, {
         foreignKey: {
-          name: 'categoryId',
+          name: 'category_id',
         },
         as: 'category',
       });
       Book.belongsTo(models.User, {
         foreignKey: {
-          name: 'userId',
+          name: 'user_id',
         },
         as: 'user',
       });
@@ -30,8 +30,8 @@ module.exports = (sequelize, DataTypes) => {
       title: DataTypes.STRING,
       author: DataTypes.STRING,
       publication: DataTypes.STRING,
-      categoryId: DataTypes.INTEGER,
-      userId: DataTypes.INTEGER,
+      category_id: DataTypes.INTEGER,
+      user_id: DataTypes.INTEGER,
       pages: DataTypes.INTEGER,
       isbn: DataTypes.STRING,
       about: DataTypes.TEXT,
