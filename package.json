@@ -13,17 +13,18 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "cloudinary": "^1.23.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "4.17.1",
     "joi": "^17.2.1",
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.2",
+    "multer-storage-cloudinary": "^4.0.0",
     "mysql2": "^2.2.5",
     "pg": "^8.4.2",
     "sequelize": "^6.3.5",
     "sequelize-cli": "^6.2.0"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

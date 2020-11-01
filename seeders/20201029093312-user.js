@@ -13,7 +13,8 @@ module.exports = {
           gender: 'Other',
           phone: '000000000000',
           address: 'Indonesia',
-          photo: 'new-user.png',
+          photo:
+            'https://res.cloudinary.com/nuraskiah/image/upload/v1604094193/new-user.png',
           role: 'admin',
           createdAt: new Date(),
           updatedAt: new Date(),

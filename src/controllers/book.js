@@ -160,8 +160,8 @@ exports.addBook = async (req, res) => {
 
     const { id } = await Book.create({
       ...req.body,
-      cover: req.files.cover[0].filename,
-      file: req.files.file[0].filename,
+      cover: req.files.cover[0].path,
+      file: req.files.file[0].filename.split('/')[2],
     });
 
     const data = await Book.findOne({

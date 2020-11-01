@@ -130,7 +130,8 @@ exports.register = async (req, res) => {
     const newUser = await User.create({
       ...req.body,
       password: hash,
-      photo: 'new-user.png',
+      photo:
+        'https://res.cloudinary.com/nuraskiah/image/upload/v1604094193/new-user.png',
       role: 'user',
     });
 
