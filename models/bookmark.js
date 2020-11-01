@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Bookmark.belongsTo(models.Book, {
         foreignKey: {
-          name: 'bookId',
+          name: 'book_id',
         },
         as: 'book',
       });
@@ -18,8 +18,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   Bookmark.init(
     {
-      userId: DataTypes.INTEGER,
-      bookId: DataTypes.INTEGER,
+      user_id: DataTypes.INTEGER,
+      book_id: DataTypes.INTEGER,
     },
     {
       sequelize,
