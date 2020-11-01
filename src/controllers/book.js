@@ -202,6 +202,7 @@ exports.addBook = async (req, res) => {
       status: 'error',
       message: 'Internal Server Error',
       code: 500,
+      data: error
     });
   }
 };
