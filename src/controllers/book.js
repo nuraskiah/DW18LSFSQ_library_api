@@ -103,11 +103,11 @@ exports.getBook = async (req, res) => {
           as: 'user',
           attributes: { exclude: ['password', 'createdAt', 'updatedAt'] },
         },
-        {
-          model: Bookmark,
-          as: 'bookmarks',
-          attributes: ['userId'],
-        },
+        // {
+        //   model: Bookmark,
+        //   as: 'bookmarks',
+        //   attributes: ['userId'],
+        // },
       ],
       attributes: {
         exclude: [
@@ -131,6 +131,7 @@ exports.getBook = async (req, res) => {
       status: 'error',
       message: 'Internal Server Error',
       code: 500,
+      data: error,
     });
   }
 };
@@ -202,7 +203,7 @@ exports.addBook = async (req, res) => {
       status: 'error',
       message: 'Internal Server Error',
       code: 500,
-      data: error
+      data: error,
     });
   }
 };
