@@ -17,14 +17,7 @@ exports.getBooks = async (req, res) => {
         },
       ],
       attributes: {
-        exclude: [
-          'createdAt',
-          'updatedAt',
-          'categoryId',
-          'userId',
-          'CategoryId',
-          'UserId',
-        ],
+        exclude: ['createdAt', 'updatedAt', 'CategoryId', 'UserId'],
       },
       order: [['id', 'DESC']],
     });
@@ -48,7 +41,7 @@ exports.getUserBooks = async (req, res) => {
     const { id } = req.params;
     const data = await Book.findAll({
       where: {
-        userId: id,
+        UserId: id,
       },
       include: [
         {
@@ -63,14 +56,7 @@ exports.getUserBooks = async (req, res) => {
         },
       ],
       attributes: {
-        exclude: [
-          'createdAt',
-          'updatedAt',
-          'categoryId',
-          'userId',
-          'CategoryId',
-          'UserId',
-        ],
+        exclude: ['createdAt', 'updatedAt', 'CategoryId', 'UserId'],
       },
       order: [
         ['status', 'ASC'],
@@ -106,7 +92,7 @@ exports.getBook = async (req, res) => {
         {
           model: Bookmark,
           as: 'bookmark',
-          attributes: ['userId'],
+          attributes: ['UserId'],
         },
       ],
       attributes: {
@@ -135,8 +121,8 @@ exports.addBook = async (req, res) => {
     //   title: Joi.string().required(),
     //   author: Joi.string().required(),
     //   publication: Joi.string().required(),
-    //   categoryId: Joi.number().required(),
-    //   userId: Joi.number().required(),
+    //   CategoryId: Joi.number().required(),
+    //   UserId: Joi.number().required(),
     //   pages: Joi.number().required(),
     //   isbn: Joi.string().required(),
     //   about: Joi.string().required(),
@@ -175,14 +161,7 @@ exports.addBook = async (req, res) => {
         },
       ],
       attributes: {
-        exclude: [
-          'createdAt',
-          'updatedAt',
-          'categoryId',
-          'userId',
-          'CategoryId',
-          'UserId',
-        ],
+        exclude: ['createdAt', 'updatedAt', 'CategoryId', 'UserId'],
       },
     });
     res.send({
@@ -234,14 +213,7 @@ exports.editBook = async (req, res) => {
         },
       ],
       attributes: {
-        exclude: [
-          'createdAt',
-          'updatedAt',
-          'categoryId',
-          'userId',
-          'CategoryId',
-          'UserId',
-        ],
+        exclude: ['createdAt', 'updatedAt', 'CategoryId', 'UserId'],
       },
     });
 

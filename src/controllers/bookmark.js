@@ -5,7 +5,7 @@ exports.getBookmarks = async (req, res) => {
     const { id } = req.params;
     const data = await Bookmark.findAll({
       where: {
-        userId: id,
+        UserId: id,
       },
       include: [
         {
@@ -36,15 +36,15 @@ exports.getBookmarks = async (req, res) => {
 
 exports.addBookmark = async (req, res) => {
   try {
-    const { userId, bookId } = req.params;
+    const { UserId, BookId } = req.params;
     const data = await Bookmark.create({
-      userId,
-      bookId,
+      UserId,
+      BookId,
     });
 
     const { id, title } = await Book.findOne({
       where: {
-        id: bookId,
+        id: BookId,
       },
     });
 
@@ -68,16 +68,16 @@ exports.addBookmark = async (req, res) => {
 
 exports.removeBookmark = async (req, res) => {
   try {
-    const { userId, bookId } = req.params;
+    const { UserId, BookId } = req.params;
     const data = await Bookmark.destroy({
       where: {
-        userId,
-        bookId,
+        UserId,
+        BookId,
       },
     });
     const { id, title } = await Book.findOne({
       where: {
-        id: bookId,
+        id: BookId,
       },
     });
 
