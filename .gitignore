@@ -11,3 +11,5 @@ api.http
 # dotenv
 .env
 .env.test
+
+public/

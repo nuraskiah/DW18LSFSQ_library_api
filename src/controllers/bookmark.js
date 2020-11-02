@@ -5,7 +5,7 @@ exports.getBookmarks = async (req, res) => {
     const { id } = req.params;
     const data = await Bookmark.findAll({
       where: {
-        userId: id,
+        user_id: id,
       },
       include: [
         {
@@ -29,6 +29,7 @@ exports.getBookmarks = async (req, res) => {
       status: 'error',
       message: 'Internal Server Error',
       code: 500,
+      data: error,
     });
   }
 };
