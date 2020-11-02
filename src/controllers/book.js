@@ -91,12 +91,12 @@ exports.getBook = async (req, res) => {
         },
         {
           model: Bookmark,
-          as: 'bookmark',
+          as: 'bookmarks',
           attributes: ['UserId'],
         },
       ],
       attributes: {
-        exclude: ['createdAt', 'updatedAt'],
+        exclude: ['CategoryId', 'UserId', 'createdAt', 'updatedAt'],
       },
     });
     res.send({
