@@ -14,7 +14,7 @@ exports.getBookmarks = async (req, res) => {
           attributes: ['id', 'title', 'author', 'cover'],
         },
       ],
-      // attributes: ['id'],
+      attributes: ['id'],
       order: [['id', 'DESC']],
     });
 
