@@ -18,7 +18,7 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      bookId: {
+      BookId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {

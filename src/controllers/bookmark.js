@@ -7,13 +7,13 @@ exports.getBookmarks = async (req, res) => {
       where: {
         userId: id,
       },
-      // include: [
-      //   {
-      //     model: Book,
-      //     as: 'book',
-      //     attributes: ['id', 'title', 'author', 'cover'],
-      //   },
-      // ],
+      include: [
+        {
+          model: Book,
+          as: 'book',
+          attributes: ['id', 'title', 'author', 'cover'],
+        },
+      ],
       // attributes: ['id'],
       order: [['id', 'DESC']],
     });
