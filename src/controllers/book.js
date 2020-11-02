@@ -105,7 +105,7 @@ exports.getBook = async (req, res) => {
         },
         {
           model: Bookmark,
-          as: 'bookmarks',
+          as: 'bookmark',
           attributes: ['user_id'],
         },
       ],
