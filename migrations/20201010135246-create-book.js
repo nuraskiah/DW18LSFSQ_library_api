@@ -17,7 +17,7 @@ module.exports = {
       publication: {
         type: Sequelize.STRING,
       },
-      category_id: {
+      categoryId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
@@ -25,7 +25,7 @@ module.exports = {
           key: 'id',
         },
       },
-      user_id: {
+      userId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {

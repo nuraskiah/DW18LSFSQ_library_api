@@ -5,7 +5,7 @@ exports.getBookmarks = async (req, res) => {
     const { id } = req.params;
     const data = await Bookmark.findAll({
       where: {
-        user_id: id,
+        userId: id,
       },
       include: [
         {
@@ -14,7 +14,7 @@ exports.getBookmarks = async (req, res) => {
           attributes: ['id', 'title', 'author', 'cover'],
         },
       ],
-      attributes: ['id'],
+      // attributes: ['id'],
       order: [['id', 'DESC']],
     });
 

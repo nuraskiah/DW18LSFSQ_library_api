@@ -106,7 +106,7 @@ exports.getBook = async (req, res) => {
         {
           model: Bookmark,
           as: 'bookmark',
-          attributes: ['user_id'],
+          attributes: ['userId'],
         },
       ],
       attributes: {
@@ -175,7 +175,14 @@ exports.addBook = async (req, res) => {
         },
       ],
       attributes: {
-        exclude: ['createdAt', 'updatedAt'],
+        exclude: [
+          'createdAt',
+          'updatedAt',
+          'categoryId',
+          'userId',
+          'CategoryId',
+          'UserId',
+        ],
       },
     });
     res.send({
