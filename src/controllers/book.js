@@ -17,7 +17,7 @@ exports.getBooks = async (req, res) => {
         },
       ],
       attributes: {
-        exclude: ['createdAt', 'updatedAt', 'CategoryId', 'UserId'],
+        exclude: ['createdAt', 'updatedAt', 'categoryId', 'userId'],
       },
       order: [['id', 'DESC']],
     });
@@ -41,7 +41,7 @@ exports.getUserBooks = async (req, res) => {
     const { id } = req.params;
     const data = await Book.findAll({
       where: {
-        UserId: id,
+        userId: id,
       },
       include: [
         {
@@ -56,7 +56,7 @@ exports.getUserBooks = async (req, res) => {
         },
       ],
       attributes: {
-        exclude: ['createdAt', 'updatedAt', 'CategoryId', 'UserId'],
+        exclude: ['createdAt', 'updatedAt', 'categoryId', 'userId'],
       },
       order: [
         ['status', 'ASC'],
@@ -92,11 +92,11 @@ exports.getBook = async (req, res) => {
         {
           model: Bookmark,
           as: 'bookmarks',
-          attributes: ['UserId'],
+          attributes: ['userId'],
         },
       ],
       attributes: {
-        exclude: ['CategoryId', 'UserId', 'createdAt', 'updatedAt'],
+        exclude: ['categoryId', 'userId', 'createdAt', 'updatedAt'],
       },
     });
     res.send({
@@ -121,8 +121,8 @@ exports.addBook = async (req, res) => {
     //   title: Joi.string().required(),
     //   author: Joi.string().required(),
     //   publication: Joi.string().required(),
-    //   CategoryId: Joi.number().required(),
-    //   UserId: Joi.number().required(),
+    //   categoryId: Joi.number().required(),
+    //   userId: Joi.number().required(),
     //   pages: Joi.number().required(),
     //   isbn: Joi.string().required(),
     //   about: Joi.string().required(),
@@ -161,7 +161,7 @@ exports.addBook = async (req, res) => {
         },
       ],
       attributes: {
-        exclude: ['createdAt', 'updatedAt', 'CategoryId', 'UserId'],
+        exclude: ['createdAt', 'updatedAt', 'categoryId', 'userId'],
       },
     });
     res.send({
@@ -213,7 +213,7 @@ exports.editBook = async (req, res) => {
         },
       ],
       attributes: {
-        exclude: ['createdAt', 'updatedAt', 'CategoryId', 'UserId'],
+        exclude: ['createdAt', 'updatedAt', 'categoryId', 'userId'],
       },
     });
 

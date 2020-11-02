@@ -55,7 +55,7 @@ const {
   removeBookmark,
 } = require('../controllers/bookmark');
 router.get('/bookmarks/:id', isAuth, getBookmarks);
-router.post('/bookmark/:BookId/:UserId', isAuth, addBookmark);
-router.delete('/unbookmark/:BookId/:UserId', isAuth, removeBookmark);
+router.post('/bookmark/:bookId/:userId', isAuth, addBookmark);
+router.delete('/unbookmark/:bookId/:userId', isAuth, removeBookmark);
 
 module.exports = router;
