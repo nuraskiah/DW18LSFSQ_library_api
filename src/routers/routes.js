@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { isAuth, isAdmin } = require('../middlewares/validateToken');
+const { isAuth, isUser, isAdmin } = require('../middlewares/validateToken');
 const { upload } = require('../middlewares/uploadFile');
 const { cloudUpload } = require('../middlewares/cloudinaryUpload');
 
@@ -46,8 +46,8 @@ router.get('/books', isAuth, getBooks);
 router.get('/user-books/:id', isAuth, getUserBooks);
 router.get('/book/:id', isAuth, getBook);
 router.post('/book', isAuth, cloudUpload('book'), addBook);
-router.patch('/book/:id', isAuth, editBook);
-router.delete('/book/:id', isAuth, isAdmin, deleteBook);
+router.patch('/book/:id', isAuth, isUser, editBook);
+router.delete('/book/:id', isAuth, isUser, deleteBook);
 
 const {
   getBookmarks,

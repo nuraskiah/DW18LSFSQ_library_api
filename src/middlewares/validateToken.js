@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const jwtKey = process.env.JWT_KEY;
-const { User } = require('../../models');
+const { User, Book } = require('../../models');
 
 exports.isAuth = (req, res, next) => {
   let authHeader, token;
@@ -17,6 +17,39 @@ exports.isAuth = (req, res, next) => {
   try {
     const isTokenValid = jwt.verify(token, jwtKey);
     req.user = isTokenValid;
+    next();
+  } catch (error) {
+    console.log(error);
+    res.status(401).send({
+      status: 'fail',
+      message: 'Invalid Token',
+      code: 401,
+    });
+  }
+};
+
+exports.isUser = async (req, res, next) => {
+  try {
+    const book = await Book.findOne({
+      where: {
+        id,
+      },
+      attributes: ['userId'],
+    });
+
+    const user = await User.findOne({
+      where: {
+        id: req.user.id,
+      },
+    });
+
+    if (user.role !== 'admin' || book.userId !== req.user.id)
+      return res.status(401).send({
+        status: 'fail',
+        message: 'You are unauthorized to access.',
+        code: 401,
+      });
+
     next();
   } catch (error) {
     console.log(error);
