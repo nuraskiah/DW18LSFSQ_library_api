@@ -32,7 +32,7 @@ exports.isUser = async (req, res, next) => {
   try {
     const book = await Book.findOne({
       where: {
-        id,
+        id: req.params.id,
       },
       attributes: ['userId'],
     });
@@ -41,9 +41,10 @@ exports.isUser = async (req, res, next) => {
       where: {
         id: req.user.id,
       },
+      attributes: ['id', 'role'],
     });
 
-    if (user.role !== 'admin' || book.userId !== req.user.id)
+    if (user.role !== 'admin' && book.userId !== req.user.id)
       return res.status(401).send({
         status: 'fail',
         message: 'You are unauthorized to access.',
